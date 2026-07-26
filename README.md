@@ -9,17 +9,27 @@ car body, pedestrian outfit and every sound is generated at runtime.
 
 ## Run it
 
-No build step. Any static file server will do:
+No build step and no `npm install` — the server uses only Node built-ins and Three.js is
+vendored in `vendor/three/`.
 
 ```bash
 npm start          # → http://localhost:4173/
+npm start -- -v    # same, logging every request
 ```
 
-or
+Any other static file server works just as well, as long as it serves the repository root:
 
 ```bash
 python3 -m http.server 4173
+npx serve .
 ```
+
+Opening `index.html` directly from the filesystem will **not** work: ES modules and the
+importmap require an `http://` origin.
+
+**If you get a 404,** the server prints the URL it was asked for and the absolute path it
+looked for, which usually makes the cause obvious (wrong working directory, or serving a
+subfolder instead of the repository root).
 
 Then open the page and press **Enter the street**. WebGL2 required; headphones recommended
 (the soundtrack is synthesised live).

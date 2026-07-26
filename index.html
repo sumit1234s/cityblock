@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Chrono Block — 300 Vine Street, 1945 to 2055</title>
+    <meta
+      name="description"
+      content="A single city block rendered in six eras. Drag the timeline and watch the buildings, vehicles, shopfronts, advertising and pedestrians rebuild themselves in place."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0e13'/%3E%3Crect x='5' y='12' width='6' height='15' fill='%23c9a26b'/%3E%3Crect x='13' y='6' width='6' height='21' fill='%238fd7ff'/%3E%3Crect x='21' y='16' width='6' height='11' fill='%23e0509a'/%3E%3C/svg%3E"
+    />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <!-- ===================== HUD ===================== -->
+    <div id="ui" class="hidden">
+      <!-- timeline ---------------------------------------------------- -->
+      <header id="timeline-wrap">
+        <div id="timeline-shell">
+          <button class="tl-arrow" id="tl-prev" title="Earlier (←)" aria-label="Earlier era">
+            <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" /></svg>
+          </button>
+
+          <div id="timeline" role="slider" aria-label="Year" tabindex="0">
+            <div class="tl-rail"><div class="tl-fill"></div></div>
+            <div class="tl-thumb"><span class="tl-thumb-ring"></span></div>
+            <div class="tl-ticks"></div>
+          </div>
+
+          <button class="tl-arrow" id="tl-next" title="Later (→)" aria-label="Later era">
+            <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+
+        <div id="era-headline">
+          <div class="eh-year"><span id="eh-year">1945</span></div>
+          <div class="eh-text">
+            <div id="eh-name">Post-War</div>
+            <div id="eh-sub">Victory on Vine Street</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- era detail card -------------------------------------------- -->
+      <section id="era-card">
+        <div class="card-head">
+          <span class="dot"></span>
+          <h2 id="card-title">Post-War · 1945</h2>
+          <button id="card-toggle" title="Collapse">–</button>
+        </div>
+        <div class="card-body">
+          <p id="card-blurb"></p>
+          <ul id="card-details"></ul>
+        </div>
+      </section>
+
+      <!-- controls ---------------------------------------------------- -->
+      <aside id="panel">
+        <div class="panel-group">
+          <div class="panel-label">Camera</div>
+          <div class="btn-row" id="view-buttons"></div>
+        </div>
+        <div class="panel-group">
+          <div class="panel-label">Movement</div>
+          <div class="btn-row" id="mode-buttons">
+            <button data-mode="orbit" class="active">Orbit</button>
+            <button data-mode="walk">Walk</button>
+            <button data-mode="fly">Fly</button>
+          </div>
+        </div>
+        <div class="panel-group">
+          <div class="panel-label">Options</div>
+          <div class="btn-row wrap" id="option-buttons">
+            <button data-toggle="audio" class="active">Sound</button>
+            <button data-toggle="cinematic">Cinematic</button>
+            <button data-toggle="labels" class="active">Labels</button>
+            <button data-toggle="quality">Quality: High</button>
+          </div>
+        </div>
+        <div class="panel-hint">
+          <kbd>1</kbd>–<kbd>6</kbd> years · <kbd>←</kbd><kbd>→</kbd> step ·
+          <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move · <kbd>H</kbd> hide UI ·
+          <kbd>P</kbd> photo
+        </div>
+      </aside>
+
+      <div id="tooltip"></div>
+      <div id="toast"></div>
+      <div id="stats"></div>
+      <div id="crosshair"></div>
+      <div id="year-stamp"><span></span></div>
+    </div>
+
+    <!-- ===================== loader ===================== -->
+    <div id="loader">
+      <div class="loader-inner">
+        <div class="brand">
+          <div class="brand-rule"></div>
+          <h1>CHRONO&nbsp;BLOCK</h1>
+          <p class="addr">300 Vine Street &nbsp;·&nbsp; between 3rd &amp; 4th</p>
+        </div>
+        <p class="pitch">
+          One city block, six moments in time. The bank on the corner survives all of it. The
+          tenement on lot D does not. Drag the timeline and the street rebuilds itself in front
+          of you — buildings, shopfronts, signage, traffic, and the clothes on people's backs.
+        </p>
+        <div class="years-preview">
+          <span>1945</span><i></i><span>1965</span><i></i><span>1985</span><i></i><span>2005</span
+          ><i></i><span>2025</span><i></i><span>2055</span>
+        </div>
+        <div class="loader-bar"><div class="loader-fill"></div></div>
+        <div class="loader-status">Preparing materials…</div>
+        <button id="start-btn" disabled>Enter the street</button>
+        <div class="loader-foot">
+          Sound is synthesised live — headphones recommended. Click and drag to look around.
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

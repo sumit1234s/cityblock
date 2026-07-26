@@ -1,0 +1,19 @@
+{
+  "name": "chrono-block",
+  "version": "1.0.0",
+  "description": "One city block, procedurally rebuilt in six eras: 1945, 1965, 1985, 2005, 2025, 2055.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node tools/serve.mjs 4173",
+    "check": "esbuild src/main.js --bundle --format=esm --outfile=/tmp/bundle-check.js",
+    "shoot": "node tools/shoot.mjs ./screenshots"
+  },
+  "keywords": ["three.js", "webgl", "procedural", "city", "timeline"],
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "playwright": "^1.56.1",
+    "three": "^0.169.0"
+  }
+}
